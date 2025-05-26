@@ -1,0 +1,127 @@
+
+Prerequisites:
+
+Before starting, ensure you have the following tools installed on your machine:
+Java 11+ (JDK) - Java Development Kit
+Maven - To manage dependencies and build the project
+IDE (Integrated Development Environment) like IntelliJ IDEA, Eclipse, or VS Code
+WebDriver for your Chrome browser
+
+Project Setup:
+
+1. Clone the Repository
+Start by cloning the GitHub repository to your local machine.
+git clone
+cd
+
+
+2. Install Java
+Ensure you have Java 11+ installed on your machine. You can verify your Java installation by running:
+java -version
+If you don’t have Java installed, you can download and install it from Oracle's official JDK page.
+
+3. Install Maven
+Maven is used to manage project dependencies. If Maven is not installed, follow these steps:
+
+-Download Maven from Apache Maven.
+-Extract it to your preferred directory.
+-Add Maven's bin folder to the system PATH.
+
+To verify Maven installation:
+mvn -version
+
+
+4. Set Up the Project Dependencies
+Once you've cloned the repository, navigate to the project directory:
+
+cd
+Run the following command to install the project dependencies defined in pom.xml:
+mvn clean install
+This will download and install the necessary libraries, including Cucumber, Selenium, and TestNG.
+
+
+5. Configure WebDriver
+The project uses Selenium WebDriver for browser automation. You will need the appropriate driver for your browser (e.g., ChromeDriver for Google Chrome).
+To avoid managing the driver manually, we use the WebDriverManager dependency, which automatically downloads the correct driver based on the browser version.
+If you wish to configure the browser manually, follow these steps:
+
+ChromeDriver:
+Download the ChromeDriver from ChromeDriver Downloads.
+Ensure the driver is compatible with your installed version of Google Chrome.
+Set the path to the chromedriver.exe in your test code.
+
+
+
+Running the Tests:
+
+1. Run the Tests with Cucumber Runner
+   click on the run configuration
+   select
+
+2. Test Execution Output
+You can view the test results in the command line or terminal. Cucumber generates detailed output that shows which steps passed and which failed.
+
+Test Directory Structure
+The project has the following directory structure:
+
+
+/src
+  /main
+    /java
+      /pages               # Page Object Model (POM) classes
+  /resources
+
+  /test
+    /java
+      /stepdefs             # Cucumber Step Definitions (Test phase)
+       /runner              # Test Runner class (Cucumber TestNG)
+    /resources
+      /features             # Cucumber Feature files
+
+
+Explanation of Key Files:
+src/test/resources/features/TodoFeature.feature: Contains Gherkin feature scenarios that describe the behavior of the Todo management application.
+
+src/main/java/page_actions/TodoPage.java: Page Object class for interacting with the Todo page.
+
+src/test/java/step_definitions/TodoStepDef.java: Cucumber step definitions that map Gherkin steps to the underlying Java code.
+
+src/test/java/runner/CucumberRunnerTest.java: The TestNG runner that launches the Cucumber tests.
+
+
+Additional Configuration (Optional)
+If you wish to configure Cucumber Options or enable reporting, you can modify the @CucumberOptions annotation in the TestRunner.java class:
+
+@CucumberOptions(
+
+        features = {"src/test/resources/features/TodoFeature.feature"},
+        glue = {"step_definitions"},
+        plugin = {"pretty", "html:target/cucumber-reports.html", "json:target/cucumber-reports.json"},
+        monochrome = true
+
+)
+Explanation of CucumberOptions:
+plugin: Specifies how the test results will be reported. The example above generates both an HTML and JSON report.
+
+monochrome: If set to true, it outputs the console result in a more readable format.
+
+glue: Points to the package where step definitions are located.
+
+Troubleshooting
+"NoSuchElementException" or "TimeoutException":
+
+Ensure that the web elements in the page objects are correct.
+
+You may need to adjust implicit waits or explicitly wait for elements to load.
+
+Maven Dependency Issues:
+
+Run mvn clean install again to resolve any missing or corrupted dependencies.
+
+Ensure the correct versions of dependencies are in your pom.xml.
+
+Browser Driver Issues:
+
+Make sure the correct browser driver version is installed.
+
+Alternatively, use WebDriverManager to automatically manage drivers.
